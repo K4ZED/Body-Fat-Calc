@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Body Fat Calculator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+  <div class="bg-grid"></div>
+  <div class="bg-glow glow-1"></div>
+  <div class="bg-glow glow-2"></div>
+
+  <div class="container">
+
+    <header class="header">
+      <div class="header-top">
+        <div class="logo-area">
+          <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Weave Gym" class="logo-img" id="logoImg">
+          <span class="logo-fallback" id="logoFallback">Kazed</span>
+        </div>
+        <div class="header-pill">
+          <span class="pill-dot"></span>
+          Fitness Tools
+        </div>
+      </div>
+    </header>
+
+    <section class="hero">
+      <h1>Body Fat<br><em>Calculator</em></h1>
+      <p class="hero-sub">Estimasi body fat, BMI, fat mass &amp; lean body mass<br>menggunakan metode U.S. Navy dan BMI.</p>
+    </section>
+
+    <div class="layout">
+
+      <!-- FORM CARD -->
+      <div class="card form-card">
+        <div class="card-label">Input</div>
+
+        <form id="bodyFatForm">
+
+          <div class="field-group">
+            <label class="field-label" for="gender">Gender</label>
+            <div class="select-wrap">
+              <select id="gender" name="gender">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+              <svg class="select-arrow" viewBox="0 0 12 8" fill="none"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+          </div>
+
+          <div class="fields-grid">
+            <div class="field-group">
+              <label class="field-label" for="age">Age</label>
+              <div class="input-wrap">
+                <input type="number" id="age" name="age" placeholder="21" min="1" max="120">
+                <span class="input-unit">yr</span>
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="weight">Weight</label>
+              <div class="input-wrap">
+                <input type="number" id="weight" name="weight" placeholder="62" min="1">
+                <span class="input-unit">kg</span>
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="height">Height</label>
+              <div class="input-wrap">
+                <input type="number" id="height" name="height" placeholder="175" min="1">
+                <span class="input-unit">cm</span>
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="neck">Neck</label>
+              <div class="input-wrap">
+                <input type="number" id="neck" name="neck" placeholder="35" min="1">
+                <span class="input-unit">cm</span>
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="waist">Waist</label>
+              <div class="input-wrap">
+                <input type="number" id="waist" name="waist" placeholder="83" min="1">
+                <span class="input-unit">cm</span>
+              </div>
+            </div>
+            <div class="field-group" id="hipField">
+              <label class="field-label" for="hip">Hip</label>
+              <div class="input-wrap">
+                <input type="number" id="hip" name="hip" placeholder="95" min="1">
+                <span class="input-unit">cm</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" id="calculateBtn" class="btn-calc">
+              <span class="btn-text">Calculate</span>
+              <span class="btn-icon">
+                <svg viewBox="0 0 20 20" fill="none"><path d="M4 10h12M10 4l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </button>
+            <button type="reset" class="btn-reset">Reset</button>
+          </div>
+
+        </form>
+
+        <div class="measure-hints">
+          <p class="hints-title">Cara ukur</p>
+          <ul>
+            <li><strong>Neck</strong> — di bawah jakun</li>
+            <li><strong>Waist</strong> — lingkar perut terbesar</li>
+            <li><strong>Hip</strong> — hanya untuk female</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- RESULT CARD -->
+      <div class="card result-card">
+        <div class="card-label">Hasil</div>
+
+        <div class="result-hero">
+          <div class="result-number-wrap">
+            <span class="result-number" id="result">--</span>
+            <span class="result-pct">%</span>
+          </div>
+          <div class="result-cat" id="category">Belum dihitung</div>
+        </div>
+
+        <div class="scale-block">
+          <div class="scale-track">
+            <div class="scale-fill seg-essential"></div>
+            <div class="scale-fill seg-athletes"></div>
+            <div class="scale-fill seg-fitness"></div>
+            <div class="scale-fill seg-average"></div>
+            <div class="scale-fill seg-obese"></div>
+            <div class="scale-thumb" id="scaleMarker">
+              <div class="scale-thumb-tip"></div>
+            </div>
+          </div>
+          <div class="scale-legend">
+            <span>Essential</span>
+            <span>Athletes</span>
+            <span>Fitness</span>
+            <span>Average</span>
+            <span>Obese</span>
+          </div>
+        </div>
+
+        <div class="metrics-grid">
+          <div class="metric-tile">
+            <span class="metric-label">U.S. Navy BF</span>
+            <strong class="metric-value" id="navyResult">--</strong>
+          </div>
+          <div class="metric-tile">
+            <span class="metric-label">Kategori</span>
+            <strong class="metric-value" id="categoryTable">--</strong>
+          </div>
+          <div class="metric-tile">
+            <span class="metric-label">BMI</span>
+            <strong class="metric-value" id="bmiResult">--</strong>
+          </div>
+          <div class="metric-tile">
+            <span class="metric-label">BF (BMI Method)</span>
+            <strong class="metric-value" id="bmiBodyFat">--</strong>
+          </div>
+          <div class="metric-tile metric-tile--accent">
+            <span class="metric-label">Fat Mass</span>
+            <strong class="metric-value" id="fatMass">-- kg</strong>
+          </div>
+          <div class="metric-tile metric-tile--accent">
+            <span class="metric-label">Lean Mass</span>
+            <strong class="metric-value" id="leanMass">-- kg</strong>
+          </div>
+        </div>
+
+        <!-- VISUALISASI -->
+        <div class="viz-block">
+          <!-- Donut Chart -->
+          <div class="viz-donut-wrap">
+            <div class="viz-label">Komposisi Tubuh</div>
+            <div class="donut-container">
+              <svg id="donutChart" viewBox="0 0 120 120" width="120" height="120">
+                <circle class="donut-bg" cx="60" cy="60" r="48" fill="none" stroke-width="14"/>
+                <circle class="donut-lean" id="donutLean" cx="60" cy="60" r="48" fill="none" stroke-width="14"
+                  stroke-dasharray="0 302" stroke-dashoffset="0" transform="rotate(-90 60 60)"/>
+                <circle class="donut-fat" id="donutFat" cx="60" cy="60" r="48" fill="none" stroke-width="14"
+                  stroke-dasharray="0 302" stroke-dashoffset="0" transform="rotate(-90 60 60)"/>
+                <text id="donutPct" x="60" y="55" text-anchor="middle" class="donut-center-val">--</text>
+                <text x="60" y="70" text-anchor="middle" class="donut-center-label">body fat</text>
+              </svg>
+              <div class="donut-legend">
+                <div class="donut-leg-item"><span class="donut-leg-dot donut-leg-fat"></span><span>Fat</span></div>
+                <div class="donut-leg-item"><span class="donut-leg-dot donut-leg-lean"></span><span>Lean</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Body Silhouette -->
+          <div class="viz-silhouette-wrap">
+            <div class="viz-label">Kondisi</div>
+            <div class="silhouette-container">
+              <svg id="silhouetteSvg" viewBox="0 0 80 160" width="80" height="160">
+                <!-- head -->
+                <circle cx="40" cy="18" r="12" class="sil-body" id="silHead"/>
+                <!-- neck -->
+                <rect x="34" y="29" width="12" height="8" rx="3" class="sil-body" id="silNeck"/>
+                <!-- torso -->
+                <path d="M22 37 Q18 55 20 80 L60 80 Q62 55 58 37 Q50 32 30 32 Z" class="sil-body" id="silTorso"/>
+                <!-- left arm -->
+                <path d="M22 38 Q12 52 14 72 Q16 74 20 72 Q18 55 26 42 Z" class="sil-body" id="silArmL"/>
+                <!-- right arm -->
+                <path d="M58 38 Q68 52 66 72 Q64 74 60 72 Q62 55 54 42 Z" class="sil-body" id="silArmR"/>
+                <!-- left leg -->
+                <path d="M28 80 Q24 100 24 130 Q24 136 30 136 Q34 136 34 130 Q33 108 34 80 Z" class="sil-body" id="silLegL"/>
+                <!-- right leg -->
+                <path d="M52 80 Q56 100 56 130 Q56 136 50 136 Q46 136 46 130 Q47 108 46 80 Z" class="sil-body" id="silLegR"/>
+                <!-- left foot -->
+                <ellipse cx="27" cy="138" rx="8" ry="4" class="sil-body" id="silFootL"/>
+                <!-- right foot -->
+                <ellipse cx="53" cy="138" rx="8" ry="4" class="sil-body" id="silFootR"/>
+              </svg>
+              <div class="sil-cat-badge" id="silBadge">--</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <footer class="footer">
+      <span>© Kzed</span>
+    </footer>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
