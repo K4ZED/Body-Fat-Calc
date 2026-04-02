@@ -47,16 +47,16 @@
             <label class="field-label">Gender</label>
 
             <div class="gender-toggle">
-              <label class="radio">
+              <label class="gender-option">
                 <input type="radio" name="gender" value="male" checked>
-                <span></span>
-                Male
+                <span class="dot"></span>
+                <span class="gender-text">Male</span>
               </label>
 
-              <label class="radio">
+              <label class="gender-option">
                 <input type="radio" name="gender" value="female">
-                <span></span>
-                Female
+                <span class="dot"></span>
+                <span class="gender-text">Female</span>
               </label>
             </div>
           </div>
@@ -101,16 +101,16 @@
                 <span class="input-unit">cm</span>
               </div>
             </div>
-          </div>
 
-          <div class="field-group" id="hipField">
-            <label class="field-label" for="hip">Hip</label>
-            <div class="input-wrap">
-              <input type="number" id="hip" name="hip" placeholder="95" min="1">
-              <span class="input-unit">cm</span>
+            <div class="field-group" id="hipField">
+              <label class="field-label" for="hip">Hip</label>
+              <div class="input-wrap">
+                <input type="number" id="hip" name="hip" placeholder="95" min="1">
+                <span class="input-unit">cm</span>
+              </div>
             </div>
           </div>
-          
+
           <div class="form-actions">
             <button type="button" id="calculateBtn" class="btn-calc">
               <span class="btn-text">Calculate</span>

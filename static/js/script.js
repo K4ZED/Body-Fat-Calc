@@ -131,8 +131,7 @@ function animateCount(el, target, decimals = 1, suffix = '') {
 }
 
 function toggleHip() {
-  const g = getGender();
-  hipField.style.display = g === 'female' ? 'block' : 'none';
+  hipField.style.display = getGender() === 'female' ? 'block' : 'none';
 }
 
 function resetDisplay() {

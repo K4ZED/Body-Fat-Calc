@@ -827,6 +827,75 @@ body {
   background: var(--orange);
 }
 
+.fields-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px 16px;
+}
+
+.field-group {
+  width: 100%;
+  min-width: 0;
+}
+
+.input-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.input-wrap input,
+.select-wrap select {
+  width: 100%;
+  display: block;
+}
+
 #hipField {
-  margin-top: 16px;
+  width: 100%;
+  margin-top: 0;
+}
+
+.gender-toggle {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.gender-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  color: #b3b3b3;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.gender-option .dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.6);
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.gender-option input {
+  display: none;
+}
+
+.gender-option input:checked + .dot {
+  border-color: #f5c400;
+  box-shadow: 0 0 0 3px rgba(245, 196, 0, 0.14);
+}
+
+.gender-option input:checked + .dot::after {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  background: #f5c400;
+}
+
+.gender-option input:checked ~ .gender-text {
+  color: #f5c400;
 }
