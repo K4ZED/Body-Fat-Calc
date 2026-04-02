@@ -788,3 +788,45 @@ body {
     align-items: flex-start;
   }
 }
+
+.gender-toggle {
+  display: flex;
+  gap: 20px;
+}
+
+.radio {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--text-dim);
+}
+
+.radio input {
+  display: none;
+}
+
+.radio span {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid var(--border-hi);
+  position: relative;
+}
+
+.radio input:checked + span {
+  border-color: var(--orange);
+}
+
+.radio input:checked + span::after {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  background: var(--orange);
+}
+
+#hipField {
+  margin-top: 16px;
+}

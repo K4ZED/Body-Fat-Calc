@@ -1,6 +1,5 @@
 'use strict';
 
-const gender       = document.getElementById('gender');
 const hipField     = document.getElementById('hipField');
 const calcBtn      = document.getElementById('calculateBtn');
 const form         = document.getElementById('bodyFatForm');
@@ -33,6 +32,10 @@ const CAT_COLORS = {
   'Average':       '#f5d328',
   'Obese':         '#c0392b',
 };
+
+function getGender() {
+  return document.querySelector('input[name="gender"]:checked').value;
+}
 
 function getCategory(val, g) {
   if (g === 'male') {
@@ -128,7 +131,8 @@ function animateCount(el, target, decimals = 1, suffix = '') {
 }
 
 function toggleHip() {
-  hipField.style.display = gender.value === 'female' ? 'flex' : 'none';
+  const g = getGender();
+  hipField.style.display = g === 'female' ? 'block' : 'none';
 }
 
 function resetDisplay() {
@@ -159,7 +163,7 @@ function calculate() {
   const neck   = parseFloat(document.getElementById('neck').value);
   const waist  = parseFloat(document.getElementById('waist').value);
   const hip    = parseFloat(document.getElementById('hip').value) || 0;
-  const g      = gender.value;
+  const g      = getGender();
 
   if (!age || !weight || !height || !neck || !waist) {
     shakeForm();
@@ -214,7 +218,10 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-gender.addEventListener('change', toggleHip);
+document.querySelectorAll('input[name="gender"]').forEach(el => {
+  el.addEventListener('change', toggleHip);
+});
+
 calcBtn.addEventListener('click', calculate);
 form.addEventListener('reset', () => setTimeout(() => { toggleHip(); resetDisplay(); }, 0));
 

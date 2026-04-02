@@ -44,13 +44,20 @@
         <form id="bodyFatForm">
 
           <div class="field-group">
-            <label class="field-label" for="gender">Gender</label>
-            <div class="select-wrap">
-              <select id="gender" name="gender">
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-              </select>
-              <svg class="select-arrow" viewBox="0 0 12 8" fill="none"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <label class="field-label">Gender</label>
+
+            <div class="gender-toggle">
+              <label class="radio">
+                <input type="radio" name="gender" value="male" checked>
+                <span></span>
+                Male
+              </label>
+
+              <label class="radio">
+                <input type="radio" name="gender" value="female">
+                <span></span>
+                Female
+              </label>
             </div>
           </div>
 
@@ -62,6 +69,7 @@
                 <span class="input-unit">yr</span>
               </div>
             </div>
+
             <div class="field-group">
               <label class="field-label" for="weight">Weight</label>
               <div class="input-wrap">
@@ -69,6 +77,7 @@
                 <span class="input-unit">kg</span>
               </div>
             </div>
+
             <div class="field-group">
               <label class="field-label" for="height">Height</label>
               <div class="input-wrap">
@@ -76,6 +85,7 @@
                 <span class="input-unit">cm</span>
               </div>
             </div>
+
             <div class="field-group">
               <label class="field-label" for="neck">Neck</label>
               <div class="input-wrap">
@@ -83,6 +93,7 @@
                 <span class="input-unit">cm</span>
               </div>
             </div>
+
             <div class="field-group">
               <label class="field-label" for="waist">Waist</label>
               <div class="input-wrap">
@@ -90,15 +101,16 @@
                 <span class="input-unit">cm</span>
               </div>
             </div>
-            <div class="field-group" id="hipField">
-              <label class="field-label" for="hip">Hip</label>
-              <div class="input-wrap">
-                <input type="number" id="hip" name="hip" placeholder="95" min="1">
-                <span class="input-unit">cm</span>
-              </div>
-            </div>
           </div>
 
+          <div class="field-group" id="hipField">
+            <label class="field-label" for="hip">Hip</label>
+            <div class="input-wrap">
+              <input type="number" id="hip" name="hip" placeholder="95" min="1">
+              <span class="input-unit">cm</span>
+            </div>
+          </div>
+          
           <div class="form-actions">
             <button type="button" id="calculateBtn" class="btn-calc">
               <span class="btn-text">Calculate</span>
