@@ -899,3 +899,16 @@ body {
 .gender-option input:checked ~ .gender-text {
   color: #f5c400;
 }
+
+@media (max-width: 560px) {
+  .btn-calc {
+    min-height: 56px !important;
+    height: 56px !important;
+    padding: 0 20px !important;
+  }
+
+  .btn-reset {
+    min-height: 56px !important;
+    height: 56px !important;
+  }
+}
